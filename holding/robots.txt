@@ -1,0 +1,8 @@
+# The site is temporarily offline while its content is rewritten.
+#
+# Crawling is deliberately still allowed: every page serves a noindex tag, and
+# a crawler can only act on that if it is permitted to fetch the page. Blocking
+# here instead would strand any URL already in an index.
+
+User-agent: *
+Allow: /

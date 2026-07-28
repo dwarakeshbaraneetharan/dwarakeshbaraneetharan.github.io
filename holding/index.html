@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0910" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- The site is intentionally offline while the content is rewritten.
+         noindex rather than a robots.txt block: a crawler has to be allowed to
+         fetch the page in order to see this and drop anything already held. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Dwarakesh Baraneetharan</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=JetBrains+Mono:wght@300..500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --void: #0a0910;
+        --bone: #f5f2ec;
+        --mute: #9a94aa;
+        --citron: #d7ff3e;
+        --violet: #8a6bff;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(1.5rem, 6vw, 5.5rem);
+        background: var(--void);
+        color: var(--bone);
+        font-family: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+      }
+
+      .glow {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .glow-a {
+        width: 60vw;
+        height: 55vh;
+        top: -18vh;
+        left: -12vw;
+        background: radial-gradient(circle, rgba(92, 63, 214, 0.5), transparent 70%);
+      }
+
+      .glow-b {
+        width: 45vw;
+        height: 45vh;
+        right: -10vw;
+        bottom: -18vh;
+        background: radial-gradient(circle, rgba(138, 107, 255, 0.3), transparent 72%);
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        max-width: 46rem;
+      }
+
+      .label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--citron);
+      }
+
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--citron);
+        box-shadow: 0 0 12px 2px rgba(215, 255, 62, 0.55);
+        animation: pulse 2.4s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      h1 {
+        margin: 2.5rem 0 0;
+        font-size: clamp(2.5rem, 9vw, 6rem);
+        font-weight: 600;
+        line-height: 0.92;
+        letter-spacing: -0.04em;
+        font-variation-settings: 'wdth' 100, 'opsz' 96;
+      }
+
+      h1 span {
+        display: block;
+        color: var(--mute);
+        font-weight: 400;
+      }
+
+      p {
+        margin: 2rem 0 0;
+        max-width: 34rem;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(1rem, 1.4vw, 1.125rem);
+        line-height: 1.6;
+        color: var(--mute);
+      }
+
+      .links {
+        margin-top: 2.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .links a {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--bone);
+        text-decoration: none;
+        padding: 0.7rem 1.25rem;
+        border: 1px solid rgba(245, 242, 236, 0.16);
+        border-radius: 999px;
+        transition:
+          border-color 0.4s ease,
+          color 0.4s ease;
+      }
+
+      .links a:hover,
+      .links a:focus-visible {
+        border-color: var(--citron);
+        color: var(--citron);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--citron);
+        outline-offset: 3px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dot {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+
+    <main>
+      <div class="label"><span class="dot"></span> Rebuilding</div>
+
+      <h1>Dwarakesh<span>Baraneetharan</span></h1>
+
+      <p>
+        The site is being rewritten. Back shortly with the real work. Until then,
+        the places below are the fastest way to reach me.
+      </p>
+
+      <div class="links">
+        <a href="https://github.com/dwarakeshbaraneetharan">GitHub</a>
+        <a href="https://www.linkedin.com/in/dwarakeshb/">LinkedIn</a>
+        <a href="mailto:hello@dwarakesh.com">Email</a>
+      </div>
+    </main>
+  </body>
+</html>

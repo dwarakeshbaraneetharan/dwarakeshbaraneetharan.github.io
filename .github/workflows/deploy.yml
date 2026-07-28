@@ -26,13 +26,19 @@ jobs:
           node-version: 24
           cache: npm
 
+      # Still built on every push so a broken app cannot slip in unnoticed
+      # while the site is down, even though the output is not what ships.
       - run: npm ci
       - run: npm run build
 
       - uses: actions/configure-pages@v6
+
+      # TEMPORARY: publishing the holding page instead of the real site while
+      # the placeholder content is rewritten. To put the site back, change the
+      # path below from `holding` to `dist`. Nothing else needs to move.
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: holding
 
   deploy:
     needs: build
