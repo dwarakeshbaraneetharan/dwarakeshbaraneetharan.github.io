@@ -18,12 +18,25 @@ import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
 import { resetScroll, useSmoothScroll } from './hooks/useSmoothScroll'
+import { projects } from './data/content'
 
 const TITLES: Record<string, string> = {
   '/': 'Dwarakesh Baraneetharan — CS & Mathematics',
   '/work': 'Work — Dwarakesh Baraneetharan',
   '/about': 'About — Dwarakesh Baraneetharan',
   '/contact': 'Contact — Dwarakesh Baraneetharan',
+}
+
+function titleFor(pathname: string) {
+  const fixed = TITLES[pathname]
+  if (fixed) return fixed
+
+  const slug = pathname.startsWith('/work/') ? pathname.slice(6) : null
+  const project = slug ? projects.find((p) => p.slug === slug) : undefined
+  if (project) return `${project.title} — Dwarakesh Baraneetharan`
+
+  // Anything else falls through to the NotFound route.
+  return 'Not found — Dwarakesh Baraneetharan'
 }
 
 export default function App() {
@@ -33,7 +46,7 @@ export default function App() {
 
   useEffect(() => {
     resetScroll()
-    document.title = TITLES[location.pathname] ?? 'Dwarakesh Baraneetharan'
+    document.title = titleFor(location.pathname)
   }, [location.pathname])
 
   const onIntroDone = useCallback(() => setReady(true), [])
