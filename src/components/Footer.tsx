@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { profile } from '../data/content'
 import Magnetic from './Magnetic'

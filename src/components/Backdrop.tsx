@@ -136,6 +136,80 @@ function compile(gl: WebGLRenderingContext, type: number, src: string) {
   return shader
 }
 
+/** Everything tied to one WebGL context, thrown away if the GPU drops it. */
+type Scene = {
+  gl: WebGLRenderingContext
+  program: WebGLProgram
+  vs: WebGLShader
+  fs: WebGLShader
+  buffer: WebGLBuffer
+  uRes: WebGLUniformLocation | null
+  uTime: WebGLUniformLocation | null
+  uMouse: WebGLUniformLocation | null
+  uScroll: WebGLUniformLocation | null
+  uIntensity: WebGLUniformLocation | null
+}
+
+function buildScene(canvas: HTMLCanvasElement): Scene | null {
+  const gl = canvas.getContext('webgl', {
+    alpha: false,
+    antialias: false,
+    depth: false,
+    stencil: false,
+    powerPreference: 'low-power',
+  })
+  if (!gl) return null
+
+  const vs = compile(gl, gl.VERTEX_SHADER, VERT)
+  const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG)
+  if (!vs || !fs) {
+    if (vs) gl.deleteShader(vs)
+    if (fs) gl.deleteShader(fs)
+    return null
+  }
+
+  const program = gl.createProgram()
+  gl.attachShader(program, vs)
+  gl.attachShader(program, fs)
+  gl.linkProgram(program)
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error(gl.getProgramInfoLog(program))
+    gl.deleteProgram(program)
+    gl.deleteShader(vs)
+    gl.deleteShader(fs)
+    return null
+  }
+  gl.useProgram(program)
+
+  const buffer = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array([-1, -1, 3, -1, -1, 3]),
+    gl.STATIC_DRAW,
+  )
+  const aPos = gl.getAttribLocation(program, 'aPos')
+  gl.enableVertexAttribArray(aPos)
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0)
+
+  // The canvas is already sized by the time we get here, and a rebuild won't
+  // trigger a resize, so claim the viewport now.
+  gl.viewport(0, 0, canvas.width, canvas.height)
+
+  return {
+    gl,
+    program,
+    vs,
+    fs,
+    buffer,
+    uRes: gl.getUniformLocation(program, 'uRes'),
+    uTime: gl.getUniformLocation(program, 'uTime'),
+    uMouse: gl.getUniformLocation(program, 'uMouse'),
+    uScroll: gl.getUniformLocation(program, 'uScroll'),
+    uIntensity: gl.getUniformLocation(program, 'uIntensity'),
+  }
+}
+
 export default function Backdrop() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -143,54 +217,15 @@ export default function Backdrop() {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const gl = canvas.getContext('webgl', {
-      alpha: false,
-      antialias: false,
-      depth: false,
-      stencil: false,
-      powerPreference: 'low-power',
-    })
-    if (!gl) return
-
-    const vs = compile(gl, gl.VERTEX_SHADER, VERT)
-    const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG)
-    if (!vs || !fs) return
-
-    const program = gl.createProgram()
-    gl.attachShader(program, vs)
-    gl.attachShader(program, fs)
-    gl.linkProgram(program)
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(program))
-      return
-    }
-    gl.useProgram(program)
-
-    const buffer = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 3, -1, -1, 3]),
-      gl.STATIC_DRAW,
-    )
-    const aPos = gl.getAttribLocation(program, 'aPos')
-    gl.enableVertexAttribArray(aPos)
-    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0)
-
-    const uRes = gl.getUniformLocation(program, 'uRes')
-    const uTime = gl.getUniformLocation(program, 'uTime')
-    const uMouse = gl.getUniformLocation(program, 'uMouse')
-    const uScroll = gl.getUniformLocation(program, 'uScroll')
-    const uIntensity = gl.getUniformLocation(program, 'uIntensity')
-
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const target = { x: 0.5, y: 0.5 }
     const eased = { x: 0.5, y: 0.5 }
     let scroll = 0
     let easedScroll = 0
-    let intensity = 0
+    let intensity = still ? 1 : 0
     let raf = 0
-    let running = true
+    let running = false
+    let scene: Scene | null = null
     const start = performance.now()
 
     const resize = () => {
@@ -200,7 +235,7 @@ export default function Backdrop() {
       if (canvas.width === w && canvas.height === h) return
       canvas.width = w
       canvas.height = h
-      gl.viewport(0, 0, w, h)
+      scene?.gl.viewport(0, 0, w, h)
     }
 
     const onPointer = (e: PointerEvent) => {
@@ -214,6 +249,8 @@ export default function Backdrop() {
     }
 
     const draw = (now: number) => {
+      if (!scene) return
+      const { gl } = scene
       const t = (now - start) / 1000
 
       eased.x += (target.x - eased.x) * 0.045
@@ -221,51 +258,80 @@ export default function Backdrop() {
       easedScroll += (scroll - easedScroll) * 0.06
       intensity += (1 - intensity) * 0.012
 
-      gl.uniform2f(uRes, canvas.width, canvas.height)
-      gl.uniform1f(uTime, still ? 12 : t)
-      gl.uniform2f(uMouse, eased.x, eased.y)
-      gl.uniform1f(uScroll, easedScroll)
-      gl.uniform1f(uIntensity, intensity)
+      gl.uniform2f(scene.uRes, canvas.width, canvas.height)
+      gl.uniform1f(scene.uTime, still ? 12 : t)
+      gl.uniform2f(scene.uMouse, eased.x, eased.y)
+      gl.uniform1f(scene.uScroll, easedScroll)
+      gl.uniform1f(scene.uIntensity, intensity)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
 
       if (running && !still) raf = requestAnimationFrame(draw)
     }
 
-    const onVisibility = () => {
-      if (document.hidden) {
-        running = false
-        cancelAnimationFrame(raf)
-      } else if (!running) {
-        running = true
-        raf = requestAnimationFrame(draw)
+    const play = () => {
+      if (running || !scene || document.hidden) return
+      running = true
+      if (still) draw(start)
+      else raf = requestAnimationFrame(draw)
+    }
+
+    const pause = () => {
+      running = false
+      cancelAnimationFrame(raf)
+    }
+
+    const release = () => {
+      if (!scene) return
+      // A lost context has already invalidated these; deleting would be a no-op.
+      if (!scene.gl.isContextLost()) {
+        scene.gl.deleteProgram(scene.program)
+        scene.gl.deleteShader(scene.vs)
+        scene.gl.deleteShader(scene.fs)
+        scene.gl.deleteBuffer(scene.buffer)
       }
+      scene = null
+    }
+
+    // Without preventDefault the browser never offers the context back, which
+    // is how a backgrounded tab ends up with a permanently blank canvas.
+    const onLost = (e: Event) => {
+      e.preventDefault()
+      pause()
+      scene = null
+    }
+
+    const onRestored = () => {
+      scene = buildScene(canvas)
+      play()
+    }
+
+    const onVisibility = () => {
+      if (document.hidden) pause()
+      else play()
     }
 
     resize()
     onScroll()
+    scene = buildScene(canvas)
+
+    canvas.addEventListener('webglcontextlost', onLost)
+    canvas.addEventListener('webglcontextrestored', onRestored)
     window.addEventListener('resize', resize)
     window.addEventListener('pointermove', onPointer, { passive: true })
     window.addEventListener('scroll', onScroll, { passive: true })
     document.addEventListener('visibilitychange', onVisibility)
 
-    if (still) {
-      intensity = 1
-      draw(start)
-    } else {
-      raf = requestAnimationFrame(draw)
-    }
+    play()
 
     return () => {
-      running = false
-      cancelAnimationFrame(raf)
+      pause()
+      canvas.removeEventListener('webglcontextlost', onLost)
+      canvas.removeEventListener('webglcontextrestored', onRestored)
       window.removeEventListener('resize', resize)
       window.removeEventListener('pointermove', onPointer)
       window.removeEventListener('scroll', onScroll)
       document.removeEventListener('visibilitychange', onVisibility)
-      gl.deleteProgram(program)
-      gl.deleteShader(vs)
-      gl.deleteShader(fs)
-      gl.deleteBuffer(buffer)
+      release()
     }
   }, [])
 

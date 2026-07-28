@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import SplitText from '../components/SplitText'
 import Reveal from '../components/Reveal'
 import Magnetic from '../components/Magnetic'

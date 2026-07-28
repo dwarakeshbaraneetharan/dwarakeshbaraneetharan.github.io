@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router'
 import { AnimatePresence } from 'motion/react'
 
 import Backdrop from './components/Backdrop'

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'motion/react'
 import type { Project } from '../data/content'
 import ProjectGlyph from './ProjectGlyph'

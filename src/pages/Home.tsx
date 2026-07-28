@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import { capabilities, facts, marqueeTerms, profile, projects } from '../data/content'
 import SplitText from '../components/SplitText'

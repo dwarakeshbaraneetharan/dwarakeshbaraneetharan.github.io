@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router'
 import { motion, useReducedMotion } from 'motion/react'
 import { projects } from '../data/content'
 import SplitText from '../components/SplitText'
