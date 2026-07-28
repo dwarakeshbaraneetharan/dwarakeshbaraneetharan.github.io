@@ -18,25 +18,12 @@ import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
 import { resetScroll, useSmoothScroll } from './hooks/useSmoothScroll'
-import { projects } from './data/content'
+import { SITE_URL, metaFor } from './data/seo'
 
-const TITLES: Record<string, string> = {
-  '/': 'Dwarakesh Baraneetharan — CS & Mathematics',
-  '/work': 'Work — Dwarakesh Baraneetharan',
-  '/about': 'About — Dwarakesh Baraneetharan',
-  '/contact': 'Contact — Dwarakesh Baraneetharan',
-}
-
-function titleFor(pathname: string) {
-  const fixed = TITLES[pathname]
-  if (fixed) return fixed
-
-  const slug = pathname.startsWith('/work/') ? pathname.slice(6) : null
-  const project = slug ? projects.find((p) => p.slug === slug) : undefined
-  if (project) return `${project.title} — Dwarakesh Baraneetharan`
-
-  // Anything else falls through to the NotFound route.
-  return 'Not found — Dwarakesh Baraneetharan'
+/** Keep a singleton head tag in step with the current route. */
+function setMeta(selector: string, attr: string, value: string) {
+  const el = document.head.querySelector(selector)
+  if (el) el.setAttribute(attr, value)
 }
 
 export default function App() {
@@ -46,7 +33,19 @@ export default function App() {
 
   useEffect(() => {
     resetScroll()
-    document.title = titleFor(location.pathname)
+
+    // The prerendered HTML already carries the right tags for a cold load;
+    // this keeps them honest across client-side navigation.
+    const meta = metaFor(location.pathname)
+    const url = `${SITE_URL}${meta.path === '/' ? '/' : meta.path}`
+    document.title = meta.title
+    setMeta('meta[name="description"]', 'content', meta.description)
+    setMeta('link[rel="canonical"]', 'href', url)
+    setMeta('meta[property="og:title"]', 'content', meta.title)
+    setMeta('meta[property="og:description"]', 'content', meta.description)
+    setMeta('meta[property="og:url"]', 'content', url)
+    setMeta('meta[name="twitter:title"]', 'content', meta.title)
+    setMeta('meta[name="twitter:description"]', 'content', meta.description)
   }, [location.pathname])
 
   const onIntroDone = useCallback(() => setReady(true), [])
