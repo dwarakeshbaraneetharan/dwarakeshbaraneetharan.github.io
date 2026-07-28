@@ -97,7 +97,16 @@ for (const meta of ROUTES) {
         : []
 
   const html = page({ meta, url, schemas })
-  written.push(write(meta.path === '/' ? 'index.html' : `${meta.path}/index.html`, html))
+
+  if (meta.path === '/') {
+    written.push(write('index.html', html))
+  } else {
+    // A bare directory makes GitHub Pages 301 /work to /work/, which leaves the
+    // canonical pointing at a URL that redirects. Shipping work.html alongside
+    // work/index.html means both shapes answer 200 and agree on the canonical.
+    written.push(write(`${meta.path}.html`, html))
+    written.push(write(`${meta.path}/index.html`, html))
+  }
 }
 
 // Genuine misses still land here, and this one really should carry a 404.
