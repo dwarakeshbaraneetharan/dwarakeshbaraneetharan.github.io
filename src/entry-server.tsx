@@ -26,3 +26,5 @@ export {
   personSchema,
   websiteSchema,
 } from './data/seo'
+
+export { profile, projects, timeline, capabilities } from './data/content'

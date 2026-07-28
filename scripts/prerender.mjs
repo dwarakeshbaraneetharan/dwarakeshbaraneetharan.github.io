@@ -18,6 +18,10 @@ const {
   OG_IMAGE,
   personSchema,
   websiteSchema,
+  profile,
+  projects,
+  timeline,
+  capabilities,
 } = await import('../dist-ssr/entry-server.js')
 
 const dist = resolve(import.meta.dirname, '..', 'dist')
@@ -134,6 +138,45 @@ const sitemap = [
 ].join('\n')
 writeFileSync(join(dist, 'sitemap.xml'), sitemap)
 
+/**
+ * llms.txt — a plain-text brief for agents and answer engines, per the
+ * llmstxt.org convention. Cloudflare's Markdown for Agents does the same job at
+ * the edge but needs a paid plan; this is the free, origin-side equivalent and
+ * costs one file.
+ */
+const llms = [
+  `# ${profile.name}`,
+  '',
+  `> ${profile.role}. ${profile.tagline} Based in ${profile.location}.`,
+  '',
+  profile.intro,
+  '',
+  '## Education',
+  '',
+  ...timeline.map((t) => `- **${t.title}**, ${t.org} (${t.period}) — ${t.detail}`),
+  '',
+  '## Projects',
+  '',
+  ...projects.map(
+    (p) => `- [${p.title}](${SITE_URL}/work/${p.slug}) — ${p.kicker}. ${p.blurb}`,
+  ),
+  '',
+  '## Focus areas',
+  '',
+  ...capabilities.map((c) => `- **${c.title}**: ${c.body}`),
+  '',
+  '## Pages',
+  '',
+  ...ROUTES.map((r) => `- [${r.title}](${SITE_URL}${r.path}): ${r.description}`),
+  '',
+  '## Contact',
+  '',
+  ...profile.socials.map((s) => `- ${s.label}: ${s.href}`),
+  '',
+].join('\n')
+writeFileSync(join(dist, 'llms.txt'), llms)
+
 console.log(`prerendered ${written.length} pages:`)
 for (const w of written) console.log(`  ${w}`)
 console.log(`  sitemap.xml (${ROUTES.length} urls)`)
+console.log(`  llms.txt (${(llms.length / 1024).toFixed(1)} kB)`)
