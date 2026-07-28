@@ -16,8 +16,7 @@ export const profile = {
     'I am nineteen. I just finished a double degree in Computer Science and Mathematics at the University of Maryland, and in a month I start my M.S. in Computer Science at Columbia. Three years, two departments, and a standing argument with myself about which one is the real one.',
   socials: [
     { label: 'GitHub', href: 'https://github.com/dwarakeshbaraneetharan' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-    { label: 'Google Scholar', href: 'https://scholar.google.com/' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/dwarakeshb/' },
     { label: 'Email', href: 'mailto:hello@dwarakesh.com' },
   ],
 } as const
