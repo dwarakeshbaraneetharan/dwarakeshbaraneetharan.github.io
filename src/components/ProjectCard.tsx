@@ -91,7 +91,7 @@ export default function ProjectCard({
                 {project.title}
               </h3>
 
-              <p className="text-mute mt-4 max-w-[46ch] text-[0.98rem] leading-relaxed">
+              <p className="text-mute mt-4 max-w-[46ch] text-[1.08rem] sm:text-[1.12rem] leading-relaxed">
                 {project.blurb}
               </p>
 

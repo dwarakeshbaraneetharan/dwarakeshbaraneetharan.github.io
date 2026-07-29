@@ -72,7 +72,7 @@ function Index() {
                     <h3 className="display-narrow text-[clamp(1.6rem,4.6vw,3.2rem)] leading-[1.05] font-medium">
                       {p.title}
                     </h3>
-                    <p className="text-mute group-hover:text-bone/70 mt-2 max-w-[62ch] text-[0.92rem] leading-relaxed transition-colors duration-500 lg:pr-16">
+                    <p className="text-mute group-hover:text-bone/70 mt-2 max-w-[62ch] text-[1.08rem] leading-relaxed transition-colors duration-500 lg:pr-16">
                       {p.blurb}
                     </p>
                     <ul className="mt-4 flex flex-wrap gap-2">
