@@ -109,7 +109,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="gutter my-20 py-36 sm:py-48 min-h-[55vh] flex items-center justify-center">
+      <section className="gutter py-20 sm:py-28">
         <ScrollLede
           className="display-narrow mx-auto max-w-[20ch] text-center text-[clamp(2.1rem,5.2vw,4.2rem)] leading-[1.1] font-medium tracking-[-0.03em]"
           text="Two years at *Maryland. Two degrees. One month until *Columbia."
