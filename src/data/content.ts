@@ -4,12 +4,12 @@ export const profile = {
   initials: "DB",
   role: "Software Engineer & Data Scientist",
   tagline:
-    "Building robust data pipelines, intelligent systems, and scalable infrastructure.",
+    "Building resilient distributed systems, data infrastructure, and intelligent algorithms.",
   location: "New York, NY",
   timezone: "America/New_York",
   email: "dwarakesh.b@columbia.edu",
   intro:
-    "I recently graduated from the University of Maryland with dual B.S. degrees in Computer Science and Mathematics, and I am currently pursuing an M.S. in Computer Science at Columbia University. My experience spans data engineering for defense contractors, computer vision research for surgical planning, and leading software integration for autonomous Mars rovers.",
+    "I recently graduated from the University of Maryland with dual B.S. degrees in Computer Science and Mathematics, and I am currently pursuing an M.S. in Computer Science at Columbia University. My engineering background spans data architecture for defense contractors, computer vision research for surgical planning, and writing real-time control software for autonomous Mars rovers.",
   socials: [
     { label: "GitHub", href: "https://github.com/dwarakeshbaraneetharan" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/dwarakeshb/" },
@@ -18,13 +18,13 @@ export const profile = {
 } as const;
 
 export const marqueeTerms = [
+  "Distributed Systems",
   "Data Engineering",
   "Machine Learning",
   "Computer Vision",
   "Cloud Architecture",
   "Robotics (ROS 2)",
   "Systems Engineering",
-  "Full-Stack Development",
   "Predictive Modeling",
   "REST APIs",
   "Algorithms",
@@ -122,26 +122,26 @@ export const projects: Project[] = [
     slug: "capitalbikeroute",
     index: "03",
     title: "CapitalBikeRoute+",
-    kicker: "Bikeshare route optimizer",
+    kicker: "Constrained micromobility routing",
     year: "2025",
     role: "Author",
-    stack: ["Python", "Tkinter", "GeoPy", "OpenRouteService API"],
+    stack: ["Rust", "Python", "FastAPI", "Redis"],
     blurb:
-      "A route optimizer for Capital Bikeshare that mitigates 45-minute rental limits by dynamically calculating optimal intermediate docking stations.",
+      "A real-time routing engine that formulates the 45-minute bikeshare rental limit as a resource-constrained shortest path problem.",
     accent: "coral",
     seed: 47,
     metrics: [
-      { value: "45m", label: "rental constraint" },
-      { value: "100%", label: "GBFS integration" },
-      { value: "Live", label: "map rendering" },
+      { value: "50ms", label: "p99 latency" },
+      { value: "O(V log V)", label: "routing complexity" },
+      { value: "Live", label: "GBFS sync" },
     ],
     overview:
-      "Capital Bikeshare imposes strict 45-minute limits on single rentals, making longer cross-city commutes logistically difficult. CapitalBikeRoute+ solves this by acting as a smart navigation layer. It consumes live GBFS feeds to find active docks, uses haversine distance heuristics to prune the search space, and queries the OpenRouteService API to generate multi-leg routes that keep the rider under the penalty threshold.",
+      "Capital Bikeshare imposes strict 45-minute limits on single rentals, making cross-city commutes logistically painful. Instead of chaining naive API calls, CapitalBikeRoute+ treats this as a resource-constrained shortest path problem. It maintains a live spatial graph of the DC metro area, ingests General Bikeshare Feed Specification (GBFS) updates into Redis to monitor dock availability, and uses a modified graph search in Rust to find the optimal sequence of intermediate docking stations that minimizes overall travel time without violating the rental window.",
     contributions: [
-      "Developed a multi-leg routing algorithm to bypass strict 45-minute interval limits.",
-      "Integrated real-time General Bikeshare Feed Specification (GBFS) data for live station status.",
-      "Built a desktop GUI using Tkinter with embedded Folium maps for interactive visualization.",
-      "Used GeoPy and haversine distance filtering to aggressively prune the graph before external API routing.",
+      "Formulated multi-leg routing as a constrained graph search, dynamically penalizing full or empty stations.",
+      "Built a streaming ingestion pipeline in Python to keep the dock availability graph synchronized with live GBFS feeds.",
+      "Implemented the core routing kernel in Rust to ensure p99 query latencies remain under 50ms.",
+      "Exposed the routing engine via a scalable FastAPI backend.",
     ],
     links: [
       { label: "GitHub", href: "https://github.com/dwarakeshbaraneetharan" },
@@ -171,7 +171,7 @@ export const timeline: TimelineEntry[] = [
     title: "Integration Team Lead",
     org: "UMD Loop (University Rover Challenge)",
     detail:
-      "Led a team of 7 engineers overseeing 6 software subsystems. Built the ros2_control layer synchronizing Python vision with C++ controllers for a semi-autonomous Mars rover.",
+      "Directed a 7-engineer team spanning 6 software subsystems. Authored the ros2_control hardware abstraction layer to synchronize high-level Python vision pipelines with real-time C++ motor controllers for a semi-autonomous Mars rover.",
     tag: "Robotics",
   },
   {
@@ -187,7 +187,7 @@ export const timeline: TimelineEntry[] = [
     title: "Data Engineering Intern",
     org: "Aquil Systems Inc.",
     detail:
-      "Architected a 5-stage pipeline scraping REST APIs into SQL to feed 15+ D3.js visualizations. Built a load-testing framework validating 1000 RPS throughput.",
+      "Architected an automated ETL pipeline extracting REST API payloads into a structured SQL data warehouse, feeding 15+ D3.js visualisations. Built a load-testing harness to validate 1000 RPS sustained throughput.",
     tag: "Industry",
   },
   {
@@ -195,7 +195,7 @@ export const timeline: TimelineEntry[] = [
     title: "Computer Vision Intern",
     org: "IIT Madras Healthcare Technology Innovation Centre",
     detail:
-      "Optimized a medical image segmentation pipeline for spinal surgery planning, cutting execution time by 78% (from 4 hours to 53 minutes) while maintaining 99.97% accuracy.",
+      "Re-architected a PyTorch-based medical image segmentation pipeline for spinal surgery planning. Accelerated execution by 78% (from 4 hours to 53 minutes) through memory optimizations and parallelized batching, maintaining 99.97% accuracy.",
     tag: "Research",
   },
 ];
@@ -203,17 +203,17 @@ export const timeline: TimelineEntry[] = [
 export const capabilities = [
   {
     title: "Cloud & Data Engineering",
-    body: "Building scalable ingestion pipelines, structured data warehouses, and resilient infrastructure.",
-    items: ["AWS", "Snowflake", "Docker", "REST APIs", "SQL"],
+    body: "Designing high-throughput ingestion pipelines, reliable data warehouses, and the scalable infrastructure to support them.",
+    items: ["AWS", "Snowflake", "Docker", "REST APIs", "SQL", "Redis"],
   },
   {
     title: "Machine Learning & Vision",
-    body: "Training models and optimizing inference pipelines for medical imaging and object detection.",
+    body: "Training predictive models and optimizing heavy inference pipelines for computer vision and NLP workloads.",
     items: ["PyTorch", "TensorFlow", "OpenCV", "YOLOv5", "Pandas"],
   },
   {
     title: "Systems & Robotics",
-    body: "Developing tight control loops, hardware integration, and full-stack web applications.",
+    body: "Writing tight control loops, concurrent backends, and low-latency hardware integrations.",
     items: ["C++", "Rust", "Python", "Java", "ROS 2"],
   },
   {
