@@ -120,7 +120,7 @@ export default function Home() {
       <section className="gutter py-[clamp(5rem,14vh,10rem)]">
         <ScrollLede
           className="display-narrow mx-auto max-w-[22ch] text-[clamp(1.9rem,5.2vw,4.2rem)] leading-[1.08] font-medium tracking-[-0.03em]"
-          text="I am nineteen. I finished a *double *degree in computer science and *mathematics at Maryland in three years, and I start a master's at *Columbia in a month."
+          text="I am nineteen. I finished a *double *degree in computer science and *mathematics at Maryland in two years, and I start a master's at *Columbia in a month."
         />
 
         <Reveal variant="up" className="mt-16 flex justify-center">
