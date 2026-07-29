@@ -10,10 +10,7 @@ const KEY = 'db-intro-played'
  */
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const reduced = useReducedMotion()
-  const [show, setShow] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return sessionStorage.getItem(KEY) !== '1'
-  })
+  const [show, setShow] = useState(true)
   const [count, setCount] = useState(0)
 
   useEffect(() => {

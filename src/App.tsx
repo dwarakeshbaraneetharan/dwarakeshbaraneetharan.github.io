@@ -67,10 +67,10 @@ export default function App() {
       <Nav />
 
       <div id="main" data-ready={ready}>
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="wait">
           <PageShell key={location.pathname}>
             <Routes location={location}>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home ready={ready} />} />
               <Route path="/work" element={<Work />} />
               <Route path="/work/:slug" element={<ProjectDetail />} />
               <Route path="/about" element={<About />} />

@@ -10,7 +10,7 @@ import SectionHeading from '../components/SectionHeading'
 import ProjectCard from '../components/ProjectCard'
 import Magnetic from '../components/Magnetic'
 
-function Hero() {
+function Hero({ ready = true }: { ready?: boolean }) {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
   const { scrollYProgress } = useScroll({
@@ -26,10 +26,11 @@ function Hero() {
       className="gutter relative flex min-h-[100svh] flex-col justify-between pt-32 pb-10"
     >
       <motion.div
+        key={ready ? 'hero-ready' : 'hero-waiting'}
         style={reduced ? undefined : { y, opacity }}
         className="flex flex-1 flex-col justify-center"
       >
-        <Reveal variant="fade" delay={0.15}>
+        <Reveal variant="fade" delay={0.1}>
           <div className="border-bone/12 bg-ink/40 inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 backdrop-blur-md">
             <span className="relative flex size-1.5">
               <span className="bg-citron absolute inline-flex size-full animate-ping rounded-full opacity-60" />
@@ -45,7 +46,7 @@ function Hero() {
           <SplitText
             as="h1"
             immediate
-            delay={0.35}
+            delay={0.15}
             stagger={0.035}
             text="Dwarakesh"
             className="display-wide block text-[clamp(3.2rem,15vw,13rem)] leading-[0.82] font-semibold"
@@ -54,7 +55,7 @@ function Hero() {
             <SplitText
               as="span"
               immediate
-              delay={0.62}
+              delay={0.38}
               stagger={0.028}
               text="Baraneetharan"
               className="display-narrow text-bone/45 block text-[clamp(1.8rem,8vw,6.4rem)] leading-[0.85] font-light"
@@ -66,7 +67,7 @@ function Hero() {
           className="mt-[clamp(2rem,6vh,4rem)] flex max-w-4xl flex-col gap-6 sm:flex-row sm:items-start sm:justify-between"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className="text-lede max-w-[34ch] leading-snug">
             I build systems at the edge of{' '}
@@ -90,7 +91,7 @@ function Hero() {
         className="border-bone/8 flex items-end justify-between border-t pt-5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 0.9, duration: 0.8 }}
       >
         <span className="label text-faint">Scroll to explore</span>
         <motion.span
@@ -106,12 +107,12 @@ function Hero() {
   )
 }
 
-export default function Home() {
+export default function Home({ ready }: { ready?: boolean }) {
   const featured = projects.slice(0, 3)
 
   return (
     <>
-      <Hero />
+      <Hero ready={ready} />
 
       <section className="border-bone/8 border-y py-7">
         <Marquee items={marqueeTerms} />
