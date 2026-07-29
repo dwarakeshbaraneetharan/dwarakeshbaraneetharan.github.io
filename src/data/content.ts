@@ -9,7 +9,7 @@ export const profile = {
   timezone: "America/New_York",
   email: "dwarakesh.b@columbia.edu",
   intro:
-    "I recently graduated from the University of Maryland with dual B.S. degrees in Computer Science and Mathematics, and I am currently pursuing an M.S. in Computer Science at Columbia University. My engineering background spans data architecture for defense contractors, computer vision research for surgical planning, and writing real-time control software for autonomous Mars rovers.",
+    "I recently graduated from the University of Maryland with dual B.S. degrees in Computer Science and Mathematics, completing the four-year program in two years. I am currently pursuing an M.S. in Computer Science at Columbia University. My engineering background spans data architecture for defense contractors, computer vision research for surgical planning, and writing real-time control software for autonomous Mars rovers.",
   socials: [
     { label: "GitHub", href: "https://github.com/dwarakeshbaraneetharan" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/dwarakeshb/" },
@@ -179,7 +179,7 @@ export const timeline: TimelineEntry[] = [
     title: "B.S. Computer Science & Mathematics",
     org: "University of Maryland, College Park",
     detail:
-      "Dual degrees in CS (Data Science track) and Math (Statistics track). College Park Scholar (Science, Technology, and Society). 3.75 GPA.",
+      "Dual degrees in CS (Data Science track) and Math (Statistics track), completed in two years. College Park Scholar (Science, Technology, and Society). 3.75 GPA.",
     tag: "Education",
   },
   {
@@ -227,5 +227,5 @@ export const facts = [
   { value: "3.75", label: "GPA" },
   { value: "2", label: "B.S. degrees" },
   { value: "2", label: "cloud certs" },
-  { value: "19", label: "years old" },
+  { value: "2", label: "years (B.S.)" },
 ];
