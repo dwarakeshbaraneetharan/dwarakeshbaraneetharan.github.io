@@ -226,6 +226,6 @@ export const capabilities = [
 export const facts = [
   { value: "3.75", label: "GPA" },
   { value: "2", label: "B.S. degrees" },
-  { value: "2", label: "cloud certs" },
+  { value: "∞", label: "tabs open", isInfinite: true },
   { value: "2", label: "years (B.S.)" },
 ];
