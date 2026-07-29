@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router'
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
-import { capabilities, facts, marqueeTerms, profile, projects } from '../data/content'
+import { capabilities, marqueeTerms, profile, projects } from '../data/content'
 import SplitText from '../components/SplitText'
 import Reveal from '../components/Reveal'
 import Marquee from '../components/Marquee'
@@ -9,6 +9,7 @@ import ScrollLede from '../components/ScrollLede'
 import SectionHeading from '../components/SectionHeading'
 import ProjectCard from '../components/ProjectCard'
 import Magnetic from '../components/Magnetic'
+import FactsGrid from '../components/FactsGrid'
 
 function Hero({ ready = true }: { ready?: boolean }) {
   const ref = useRef<HTMLElement>(null)
@@ -124,21 +125,7 @@ export default function Home({ ready }: { ready?: boolean }) {
           text="I am nineteen. I finished a *double *degree in computer science and *mathematics at Maryland in two years, and I start a master's at *Columbia in a month."
         />
 
-        <Reveal variant="up" className="mt-16 flex justify-center">
-          <div className="grid w-full max-w-3xl grid-cols-2 gap-px overflow-hidden rounded-2xl md:grid-cols-4">
-            {facts.map((f) => (
-              <div
-                key={f.label}
-                className="bg-ink/65 outline-bone/8 px-5 py-7 text-center outline backdrop-blur-md"
-              >
-                <div className="display-wide text-citron text-[clamp(1.7rem,3.4vw,2.6rem)] leading-none font-semibold">
-                  {f.value}
-                </div>
-                <div className="label text-faint mt-3">{f.label}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        <FactsGrid />
       </section>
 
       <section className="gutter py-[clamp(3rem,8vh,6rem)]">
