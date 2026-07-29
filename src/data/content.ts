@@ -227,5 +227,5 @@ export const facts = [
   { value: "3.75", label: "GPA" },
   { value: "2", label: "B.S. degrees" },
   { value: "2", label: "cloud certs" },
-  { value: "1st", label: "Technica hackathon" },
+  { value: "19", label: "years old" },
 ];
