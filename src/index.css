@@ -15,8 +15,8 @@
 
   /* Foreground: warm bone, never pure white */
   --color-bone: #f5f2ec;
-  --color-mute: #9a94aa;
-  --color-faint: #625c72;
+  --color-mute: #b5afc6;
+  --color-faint: #857d97;
 
   /* Accents */
   --color-citron: #d7ff3e;
@@ -34,8 +34,8 @@
   --text-mega: clamp(2.5rem, 8.5vw, 8rem);
   --text-jumbo: clamp(2rem, 5.5vw, 4.5rem);
   --text-big: clamp(1.6rem, 3.2vw, 2.6rem);
-  --text-lede: clamp(1.05rem, 1.6vw, 1.4rem);
-  --text-label: 0.6875rem;
+  --text-lede: clamp(1.18rem, 2vw, 1.55rem);
+  --text-label: 0.78rem;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
@@ -93,8 +93,8 @@
     background: var(--color-void);
     color: var(--color-bone);
     font-family: var(--font-sans);
-    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.075rem);
-    line-height: 1.6;
+    font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.18rem);
+    line-height: 1.65;
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

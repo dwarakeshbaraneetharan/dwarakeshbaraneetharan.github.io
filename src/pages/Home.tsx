@@ -175,7 +175,7 @@ export default function Home() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <p className="text-mute mt-4 text-[0.98rem] leading-relaxed">{c.body}</p>
+                <p className="text-mute mt-4 text-[1.08rem] sm:text-[1.12rem] leading-relaxed">{c.body}</p>
                 <ul className="mt-7 flex flex-wrap gap-2">
                   {c.items.map((item) => (
                     <li
