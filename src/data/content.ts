@@ -79,6 +79,7 @@ export const projects: Project[] = [
       'Added PKCE OAuth, identity-bound AES-GCM token encryption, and CSRF checks for secure public repository onboarding.',
     ],
     links: [
+      { label: 'Live Demo', href: 'https://quarantine.dwarakesh.com' },
       { label: 'Repository', href: 'https://github.com/dwarakeshbaraneetharan/quarantine' },
     ],
   },
@@ -108,122 +109,9 @@ export const projects: Project[] = [
       'Enforced strict citation constraints on the LLM generation step to ensure all claims are verifiable.',
     ],
     links: [
+      { label: 'Live Demo', href: 'https://warrant-197958039317.us-central1.run.app' },
       { label: 'Repository', href: 'https://github.com/dwarakeshbaraneetharan/warrant' },
     ],
-  },
-  {
-    slug: 'lumen',
-    index: '03',
-    title: 'Lumen',
-    kicker: 'Real-time spectral renderer',
-    year: '2025',
-    role: 'Author',
-    stack: ['WebGPU', 'WGSL', 'TypeScript'],
-    blurb:
-      'A browser path tracer that samples wavelengths rather than RGB triples, so dispersion and thin-film interference come out of the physics for free.',
-    accent: 'coral',
-    seed: 47,
-    metrics: [
-      { value: '60fps', label: 'at 1440p' },
-      { value: '32', label: 'spectral bands' },
-      { value: '0', label: 'plugins required' },
-    ],
-    overview:
-      'Most real-time renderers cheat colour: they trace three channels and bolt on a rainbow when they need one. Lumen traces a stratified sample of the visible spectrum instead. Combining a hero-wavelength sampler with a spatiotemporal reservoir resampler keeps the variance low enough to converge inside a single frame budget, entirely inside a browser tab.',
-    contributions: [
-      'Wrote the full WGSL path-tracing kernel, including a wavefront scheduler for divergent rays.',
-      'Implemented hero-wavelength spectral sampling with multiple importance sampling across bands.',
-      'Built a ReSTIR-style temporal reservoir pass that reuses samples across frames without ghosting.',
-      'Shipped an in-browser scene editor with hot-reloading materials.',
-    ],
-    links: [
-      { label: 'Live demo', href: 'https://github.com/' },
-      { label: 'Repository', href: 'https://github.com/' },
-    ],
-  },
-  {
-    slug: 'cadence',
-    index: '04',
-    title: 'Cadence',
-    kicker: 'Tensor scheduling compiler',
-    year: '2025',
-    role: 'Research engineer',
-    stack: ['MLIR', 'C++', 'Python'],
-    blurb:
-      'Treats kernel scheduling as an integer program with a learned warm start, finding tilings that beat hand-tuned libraries on irregular shapes.',
-    accent: 'citron',
-    seed: 63,
-    metrics: [
-      { value: '1.7x', label: 'median speedup' },
-      { value: '90s', label: 'to schedule' },
-      { value: '240', label: 'kernels evaluated' },
-    ],
-    overview:
-      'Vendor libraries are excellent on the shapes their authors anticipated and mediocre everywhere else. Cadence formulates tiling, fusion and vectorisation choices as a single mixed-integer program over an MLIR dialect, then uses a small graph neural network to warm-start the solver so the search terminates in about ninety seconds rather than overnight.',
-    contributions: [
-      'Defined an MLIR dialect capturing loop nests, memory hierarchy and legal fusion boundaries.',
-      'Encoded the scheduling search as a mixed-integer program with symmetry-breaking constraints.',
-      'Trained a graph neural network on 240 kernels to predict strong incumbent solutions.',
-      'Benchmarked against cuBLAS and oneDNN across irregular batch and sequence shapes.',
-    ],
-    links: [{ label: 'Paper draft', href: 'https://github.com/' }],
-  },
-  {
-    slug: 'tessera',
-    index: '05',
-    title: 'Tessera',
-    kicker: 'Aperiodic tiling studio',
-    year: '2024',
-    role: 'Author',
-    stack: ['WebGL', 'Rust/WASM'],
-    blurb:
-      'An interactive studio for substitution tilings — Penrose, Ammann–Beenker, and the einstein hat — that renders millions of tiles without dropping a frame.',
-    accent: 'violet',
-    seed: 83,
-    metrics: [
-      { value: '4M', label: 'tiles rendered' },
-      { value: '11', label: 'tiling families' },
-      { value: '<1ms', label: 'substitution step' },
-    ],
-    overview:
-      'Aperiodic tilings are one of the few places where a picture really is the proof. Tessera generates substitution tilings in a Rust core compiled to WebAssembly, streams them into instanced WebGL draw calls, and lets you zoom continuously through the hierarchy while the substitution rule regenerates detail underneath you.',
-    contributions: [
-      'Implemented cut-and-project and substitution generators for eleven tiling families.',
-      'Built a level-of-detail scheme that regenerates local patches instead of the whole plane.',
-      'Wrote an instanced WebGL renderer that batches millions of tiles into a handful of draw calls.',
-      'Added an export path to SVG and plotter-ready G-code.',
-    ],
-    links: [
-      { label: 'Live demo', href: 'https://github.com/' },
-      { label: 'Repository', href: 'https://github.com/' },
-    ],
-  },
-  {
-    slug: 'orbit',
-    index: '06',
-    title: 'Orbit',
-    kicker: 'Campus scheduling solver',
-    year: '2024',
-    role: 'Author',
-    stack: ['Python', 'OR-Tools', 'Postgres'],
-    blurb:
-      'A constraint solver that rebuilt a 900-section course timetable and gave four thousand students back roughly a week of dead time each semester.',
-    accent: 'coral',
-    seed: 101,
-    metrics: [
-      { value: '900', label: 'sections' },
-      { value: '4,100', label: 'students served' },
-      { value: '−23%', label: 'schedule gaps' },
-    ],
-    overview:
-      'Timetabling is the classic NP-hard problem that everybody solves badly by hand. Orbit models room capacity, instructor availability, prerequisite chains and student preference as a weighted constraint satisfaction problem, then runs a large-neighbourhood search that repairs an existing timetable instead of rebuilding it from nothing — which matters, because nobody wants their Tuesday moved.',
-    contributions: [
-      'Modelled hard and soft scheduling constraints in CP-SAT with lexicographic objectives.',
-      'Designed a large-neighbourhood search that keeps 85% of the prior timetable stable.',
-      'Built an ingestion pipeline over the registrar export with a Postgres-backed audit trail.',
-      'Ran a preference survey with 4,100 students to weight the soft objective.',
-    ],
-    links: [{ label: 'Case study', href: 'https://github.com/' }],
   },
 ]
 

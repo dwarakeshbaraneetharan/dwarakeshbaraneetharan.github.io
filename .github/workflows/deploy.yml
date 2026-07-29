@@ -38,7 +38,7 @@ jobs:
       # path below from `holding` to `dist`. Nothing else needs to move.
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: holding
+          path: dist
 
   deploy:
     needs: build
