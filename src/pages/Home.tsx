@@ -148,7 +148,7 @@ export default function Home() {
               data-cursor="All"
               className="border-bone/15 hover:border-citron hover:text-citron inline-flex items-center gap-2 rounded-full border px-6 py-3 text-[0.92rem] transition-colors duration-500"
             >
-              View all six
+              View all projects
               <span aria-hidden="true">→</span>
             </Link>
           </Magnetic>

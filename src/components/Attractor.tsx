@@ -68,25 +68,25 @@ export default function Attractor({ className }: { className?: string }) {
       const cy = h / 2
 
       for (const orbit of orbits) {
-        const p = t * 0.07 * orbit.rate + orbit.phase
-        const a = -1.7 + 0.42 * Math.sin(p) + pointer.x * 0.34
-        const b = 1.8 + 0.36 * Math.cos(p * 0.83) + pointer.y * 0.3
-        const c = -1.9 + 0.3 * Math.sin(p * 0.61)
-        const d = -0.4 + 0.5 * Math.cos(p * 0.47)
+        const p = t * 0.05 * orbit.rate + orbit.phase
+        const a = -1.4 + 0.12 * Math.sin(p) + pointer.x * 0.15
+        const b = 1.6 + 0.12 * Math.cos(p * 0.83) + pointer.y * 0.15
+        const c = 1.0 + 0.1 * Math.sin(p * 0.61)
+        const d = 0.7 + 0.1 * Math.cos(p * 0.47)
 
         // The orbit is bounded by |x| <= 1 + |c| and |y| <= 1 + |d|, so scale
         // each axis independently or the figure sits in a letterboxed strip.
-        const sx = (w * 0.47) / (1 + Math.abs(c))
-        const sy = (h * 0.47) / (1 + Math.abs(d))
+        const sx = (w * 0.42) / (1 + Math.abs(c))
+        const sy = (h * 0.42) / (1 + Math.abs(d))
 
         ctx.fillStyle = orbit.color
         let { x, y } = orbit
 
         // The first frames are still spiralling in from the seed point, so burn
         // them off rather than streaking a transient across the figure.
-        const skip = warmup < 4 ? 900 : 0
+        const skip = warmup < 4 ? 1200 : 0
 
-        for (let i = 0; i < 5200 + skip; i++) {
+        for (let i = 0; i < 7500 + skip; i++) {
           const nx = Math.sin(a * y) + c * Math.cos(a * x)
           const ny = Math.sin(b * x) + d * Math.cos(b * y)
           x = nx

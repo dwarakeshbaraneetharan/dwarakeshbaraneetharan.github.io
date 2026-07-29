@@ -2,9 +2,6 @@
 
 Personal portfolio. Live at **[www.dwarakesh.com](https://www.dwarakesh.com)**.
 
-> All copy, projects and metrics are currently **placeholder content**. Swap them
-> out in `src/data/content.ts` — that one file drives every page.
-
 ## Stack
 
 | Concern     | Choice                                                    |

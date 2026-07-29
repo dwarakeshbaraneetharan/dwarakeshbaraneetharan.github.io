@@ -74,7 +74,7 @@ export default function About() {
         />
       </header>
 
-      <section className="gutter grid items-start gap-14 pb-24 lg:grid-cols-[1fr_0.85fr]">
+      <section className="gutter grid items-start gap-12 pb-24 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-7">
           <Reveal variant="up">
             <p className="text-lede leading-relaxed">{profile.intro}</p>
@@ -92,13 +92,12 @@ export default function About() {
             <p className="text-mute leading-relaxed">
               Away from a terminal I read a great deal of analysis I do not fully
               understand yet, play chess badly and quickly, and keep a running
-              list of problems I intend to come back to. This paragraph is
-              placeholder text and should eventually say something truer.
+              list of problems I intend to come back to.
             </p>
           </Reveal>
         </div>
 
-        <Reveal variant="scale">
+        <Reveal variant="scale" className="w-full max-w-md mx-auto lg:mx-0 lg:sticky lg:top-28">
           <figure className="border-bone/8 bg-void overflow-hidden rounded-[2rem] border">
             <Attractor className="block aspect-square w-full" />
             <figcaption className="border-bone/8 text-faint border-t px-6 py-4 font-mono text-[0.7rem] leading-relaxed">
@@ -113,7 +112,7 @@ export default function About() {
       <section className="gutter py-[clamp(4rem,10vh,8rem)]">
         <ScrollLede
           className="display-narrow mx-auto max-w-[20ch] text-center text-[clamp(1.8rem,4.8vw,3.8rem)] leading-[1.1] font-medium tracking-[-0.03em]"
-          text="Three years at *Maryland. Two degrees. One month until *Columbia."
+          text="Two years at *Maryland. Two degrees. One month until *Columbia."
         />
       </section>
 

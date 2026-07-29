@@ -55,11 +55,13 @@ export default function ScrollLede({ text, className }: Props) {
     <p ref={ref} className={className}>
       {words.map((word, i) => {
         const accent = word.startsWith('*')
+        const start = (i / words.length) * 0.75
+        const end = Math.min(1.0, ((i + 1.5) / words.length) * 0.75)
         return (
           <Word
             key={`${word}-${i}`}
             progress={scrollYProgress}
-            range={[i / words.length, (i + 1.6) / words.length]}
+            range={[start, end]}
             accent={accent}
           >
             {word.replaceAll('*', '')}

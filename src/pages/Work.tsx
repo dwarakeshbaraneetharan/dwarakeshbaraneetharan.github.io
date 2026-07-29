@@ -139,7 +139,7 @@ export default function Work() {
           <div className="flex items-center gap-3">
             <span className="label text-citron">Work</span>
             <span className="bg-bone/15 h-px w-10" />
-            <span className="label text-faint">Six selected projects</span>
+            <span className="label text-faint">Selected projects</span>
           </div>
         </Reveal>
         <SplitText
@@ -153,9 +153,7 @@ export default function Work() {
         />
         <Reveal variant="up" delay={0.4}>
           <p className="text-mute mt-10 max-w-[52ch] text-[1.05rem] leading-relaxed">
-            Everything below is placeholder content while the real write-ups get
-            finished. The shape is right, though: a problem worth the effort, a
-            decision I had to defend, and a number that says whether it worked.
+            A collection of systems, distributed services, and constrained algorithms: a problem worth the effort, a decision I had to defend, and a number that says whether it worked.
           </p>
         </Reveal>
       </header>
