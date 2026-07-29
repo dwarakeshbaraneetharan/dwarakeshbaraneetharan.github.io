@@ -55,7 +55,7 @@ function Timeline() {
 export default function About() {
   return (
     <>
-      <header className="gutter pt-40 pb-16">
+      <section className="gutter pt-36 pb-20">
         <Reveal variant="fade">
           <div className="flex items-center gap-3">
             <span className="label text-citron">About</span>
@@ -63,50 +63,50 @@ export default function About() {
             <span className="label text-faint">Who is doing the typing</span>
           </div>
         </Reveal>
-        <SplitText
-          as="h1"
-          by="word"
-          immediate
-          delay={0.2}
-          stagger={0.06}
-          text="A proof and a fast implementation are often the same idea."
-          className="display-wide mt-8 max-w-[16ch] text-[clamp(2.4rem,7.5vw,6.4rem)] font-semibold"
-        />
-      </header>
 
-      <section className="gutter grid items-start gap-12 pb-24 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="space-y-7">
-          <Reveal variant="up">
-            <p className="text-lede leading-relaxed">{profile.intro}</p>
-          </Reveal>
-          <Reveal variant="up" delay={0.08}>
-            <p className="text-mute leading-relaxed">
-              Most of what I enjoy sits in the gap between the two disciplines: a
-              bound that tells you a data structure cannot be faster, a cache line
-              that says the bound was optimistic, and the work of reconciling
-              them. I like building tools other people can poke at, which is why
-              so much of what I write ends up rendering something.
-            </p>
-          </Reveal>
-          <Reveal variant="up" delay={0.14}>
-            <p className="text-mute leading-relaxed">
-              Away from a terminal I read a great deal of analysis I do not fully
-              understand yet, play chess badly and quickly, and keep a running
-              list of problems I intend to come back to.
-            </p>
+        <div className="mt-8 grid items-start gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+          <div className="space-y-8">
+            <SplitText
+              as="h1"
+              by="word"
+              immediate
+              delay={0.2}
+              stagger={0.05}
+              text="A proof and a fast implementation are often the same idea."
+              className="display-wide text-[clamp(2.4rem,6vw,5.2rem)] font-semibold leading-[0.95]"
+            />
+            <Reveal variant="up" delay={0.1}>
+              <p className="text-lede leading-relaxed">{profile.intro}</p>
+            </Reveal>
+            <Reveal variant="up" delay={0.16}>
+              <p className="text-mute leading-relaxed">
+                Most of what I enjoy sits in the gap between the two disciplines: a
+                bound that tells you a data structure cannot be faster, a cache line
+                that says the bound was optimistic, and the work of reconciling
+                them. I like building tools other people can poke at, which is why
+                so much of what I write ends up rendering something.
+              </p>
+            </Reveal>
+            <Reveal variant="up" delay={0.22}>
+              <p className="text-mute leading-relaxed">
+                Away from a terminal I read a great deal of analysis I do not fully
+                understand yet, play chess badly and quickly, and keep a running
+                list of problems I intend to come back to.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal variant="scale" className="w-full max-w-sm mx-auto lg:mx-0 lg:sticky lg:top-28">
+            <figure className="border-bone/8 bg-void overflow-hidden rounded-[2rem] border shadow-2xl">
+              <Attractor className="block aspect-square w-full" />
+              <figcaption className="border-bone/8 text-faint border-t px-5 py-3.5 font-mono text-[0.68rem] leading-relaxed">
+                <span className="text-citron">Clifford attractor</span> — x&prime; =
+                sin(a·y) + c·cos(a·x), y&prime; = sin(b·x) + d·cos(b·y). Parameters
+                drift over time. Hover to bend a and b.
+              </figcaption>
+            </figure>
           </Reveal>
         </div>
-
-        <Reveal variant="scale" className="w-full max-w-md mx-auto lg:mx-0 lg:sticky lg:top-28">
-          <figure className="border-bone/8 bg-void overflow-hidden rounded-[2rem] border">
-            <Attractor className="block aspect-square w-full" />
-            <figcaption className="border-bone/8 text-faint border-t px-6 py-4 font-mono text-[0.7rem] leading-relaxed">
-              <span className="text-citron">Clifford attractor</span> — x&prime; =
-              sin(a·y) + c·cos(a·x), y&prime; = sin(b·x) + d·cos(b·y). Parameters
-              drift over time. Hover to bend a and b.
-            </figcaption>
-          </figure>
-        </Reveal>
       </section>
 
       <section className="gutter py-[clamp(4rem,10vh,8rem)]">

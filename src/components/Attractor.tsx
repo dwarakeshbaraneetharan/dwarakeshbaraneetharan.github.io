@@ -76,8 +76,8 @@ export default function Attractor({ className }: { className?: string }) {
 
         // The orbit is bounded by |x| <= 1 + |c| and |y| <= 1 + |d|, so scale
         // each axis independently or the figure sits in a letterboxed strip.
-        const sx = (w * 0.42) / (1 + Math.abs(c))
-        const sy = (h * 0.42) / (1 + Math.abs(d))
+        const sx = (w * 0.46) / (1 + Math.abs(c))
+        const sy = (h * 0.46) / (1 + Math.abs(d))
 
         ctx.fillStyle = orbit.color
         let { x, y } = orbit
