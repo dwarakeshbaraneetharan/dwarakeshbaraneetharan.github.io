@@ -8,7 +8,6 @@ import {
   useTransform,
   useVelocity,
 } from 'motion/react'
-import { useRef } from 'react'
 
 const wrap = (min: number, max: number, v: number) => {
   const range = max - min
@@ -22,37 +21,45 @@ type Props = {
 }
 
 /**
- * Infinite ticker whose speed and direction are pushed around by how fast
- * (and which way) you're scrolling.
+ * Infinite ticker whose speed and direction smoothly track scroll velocity
+ * without juddering or discrete direction flips.
  */
 export default function Marquee({
   items,
-  baseVelocity = -2.2,
+  baseVelocity = -1.2,
   className,
 }: Props) {
   const reduced = useReducedMotion()
   const baseX = useMotionValue(0)
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-  const smooth = useSpring(scrollVelocity, {
+
+  // Smooth out raw scroll velocity with spring physics
+  const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,
-    stiffness: 400,
+    stiffness: 300,
   })
-  const factor = useTransform(smooth, [-1200, 0, 1200], [4, 1, -4], {
+
+  // Map scroll speed to a continuous velocity delta
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 4.5], {
     clamp: false,
   })
-  const direction = useRef(1)
 
   const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`)
 
   useAnimationFrame((_, delta) => {
     if (reduced) return
-    let move = direction.current * baseVelocity * (delta / 1000)
-    const f = factor.get()
-    if (f < 0) direction.current = -1
-    else if (f > 0) direction.current = 1
-    move += move * Math.abs(f)
-    baseX.set(baseX.get() + move)
+
+    const dt = delta / 1000
+    const vFactor = velocityFactor.get()
+
+    // Smooth continuous velocity coupling:
+    // At rest: baseVelocity (-1.2%/s)
+    // Scrolling down (vFactor > 0): accelerates smoothly to the left
+    // Scrolling up (vFactor < 0): decelerates and smoothly reverses to the right
+    const moveBy = (baseVelocity - vFactor * 1.4) * dt
+
+    baseX.set(baseX.get() + moveBy)
   })
 
   const row = [...items, ...items, ...items, ...items]
